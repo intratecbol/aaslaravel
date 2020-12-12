@@ -40,7 +40,6 @@ class AdministrativoController extends Controller
     }
     public function datos(){
         return datatables()->of(Usuario::all())->toJson();
-
     }
     
 }
