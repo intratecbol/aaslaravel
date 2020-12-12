@@ -33,12 +33,12 @@
               <button class="btn btn-success m-1" data-toggle="modal" data-target="#crear"><i class="fa fa-plus"></i>Crear nuevo</button>
             </div>
             <div class="col-12">
-  
+
               <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title"><i class="fa fa-file"></i> Titulo Caja</h3>
                 </div>
-                
+
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="example1" class="table table-bordered table-hover">
@@ -51,9 +51,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                                   
-
-                
                     </tbody>
                   </table>
                 </div>
@@ -92,10 +89,25 @@
                     <input type="text" class="form-control" name="Usuario_Usuario" id="nombre2" placeholder="Curso">
                   </div>
                 </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Seccion</label>
+                <div class="col-sm-10">
+                    {{--                          <input type="text" class="form-control" name="Usuario_Usuario" id="nombre" placeholder="Curso">--}}
+                    <select name="secciones" class="form-control" id="secciones2">
+
+                    </select>
+                </div>
+            </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Ciclo curso</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="Usuario_Usuario" id="ciclo2" placeholder="Ciclo curso">
+{{--                    <input type="text" class="form-control" name="Usuario_Usuario" id="ciclo2" placeholder="Ciclo curso">--}}
+                      <select name="ciclo" class="form-control" id="ciclo2">
+                          <option value="PRE-KINDER">PRE-KINDER</option>
+                          <option value="KINDER">KINDER</option>
+                          <option value="PRIMARIA">PRIMARIA</option>
+                          <option value="SECUNDARIA">SECUNDARIA</option>
+                      </select>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -104,7 +116,7 @@
                 </div>
         </form>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -126,16 +138,31 @@
                     <input type="text" class="form-control" name="Usuario_Usuario" id="codigo" placeholder="Codigo curso">
                   </div>
                 </div>
-                <div class="form-group row">
+                  <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Curso</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" name="Usuario_Usuario" id="nombre" placeholder="Curso">
                     </div>
                   </div>
                   <div class="form-group row">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Seccion</label>
+                      <div class="col-sm-10">
+{{--                          <input type="text" class="form-control" name="Usuario_Usuario" id="nombre" placeholder="Curso">--}}
+                          <select name="secciones" class="form-control" id="secciones">
+
+                          </select>
+                      </div>
+                  </div>
+                  <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Ciclo curso</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="Usuario_Usuario" id="ciclo" placeholder="Ciclo curso">
+{{--                      <input type="text" class="form-control" name="Usuario_Usuario" id="ciclo" placeholder="Ciclo curso">--}}
+                        <select name="ciclo" class="form-control" id="ciclo">
+                            <option value="PRE-KINDER">PRE-KINDER</option>
+                            <option value="KINDER">KINDER</option>
+                            <option value="PRIMARIA">PRIMARIA</option>
+                            <option value="SECUNDARIA">SECUNDARIA</option>
+                        </select>
                     </div>
                   </div>
                 <div class="modal-footer">
@@ -153,6 +180,13 @@
       <script>
           //console.log('aa');0
           window.onload=function(){
+              axios.get('/seccion').then(res=>{
+                  res.data.forEach(r=>{
+                      $('#secciones').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option");
+                      $('#secciones2').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option");
+                  });
+
+              });
               var id=0;
             var table =$("#example1").DataTable({
               "ajax": '/curso',
@@ -229,7 +263,7 @@
                                 )
                             table.ajax.reload();
                         });
-                        
+
                     }
                     })
 
@@ -250,7 +284,7 @@
                 let data={
                     Codigo_Curso:$('#codigo').val(),
                     Nombre_Curso:$('#nombre').val(),
-                    Id_Seccion_Curso:1,
+                    Id_Seccion_Curso:$('#secciones').val(),
                     Ciclo_Curso:$('#ciclo').val(),
                 };
                 axios.post('/curso',data).then(res=>{
@@ -274,7 +308,7 @@
                 let data={
                     Codigo_Curso:$('#codigo2').val(),
                     Nombre_Curso:$('#nombre2').val(),
-                    Id_Seccion_Curso:1,
+                    Id_Seccion_Curso:$('#secciones2').val(),
                     Ciclo_Curso:$('#ciclo2').val(),
                 };
                 //console.log(id);
@@ -299,12 +333,12 @@
                                 'error'
                                 )
                     }
-                    
+
                 });
                 return false;
             })
           }
-          
+
       </script>
 
 

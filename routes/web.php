@@ -34,3 +34,4 @@ Route::get('/fcurso', function () {
     return view('curso');
 })->middleware('auth');
 Route::apiResource('/curso',App\Http\Controllers\CursoController::class)->middleware('auth');
+Route::apiResource('/seccion',App\Http\Controllers\SeccionesCursoController::class)->middleware('auth');
