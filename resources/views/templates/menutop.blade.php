@@ -35,7 +35,7 @@
         <div class="image" style="float: left">
           <img src="<?php //echo $foto_usuario;?>https://aasoruro.com/wp-content/uploads/2019/05/cropped-cabezaaguila2-1-32x32.png" class="img-circle elevation-2" style="width: 40px" alt="Usuario">
         </div>
-        <div style="color:#fcfcfc; padding:8px 0px 0px 10px;"> &nbsp;&nbsp;{{ auth()->user()->name }}</div>
+        <div style="color:#fcfcfc; padding:8px 0px 0px 10px;"> &nbsp;&nbsp;{{session('Nombre_Persona')}} {{session('Ap_Paterno_Persona')}}</div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="salir.php" role="button"

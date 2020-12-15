@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
+    //session(['key' =>'value']);
+    //$value = session('key');
+
     return view('home');
-})->middleware('auth');
+})->middleware('auth');*/
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'inicio'])->middleware('auth');
 
 Auth::routes();
 

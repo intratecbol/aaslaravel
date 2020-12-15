@@ -27,11 +27,12 @@ $menu= array (
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="<?php //echo $foto_usuario;?> https://aasoruro.com/wp-content/uploads/2019/05/cropped-cabezaaguila2-1-32x32.png" class="img-circle elevation-2" alt="Usuario">
+            
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php //echo $_SESSION["Nombre_Usuario"];?></a>
+            <a href="#" class="d-block">{{session('Nombre_Persona')}} {{session('Ap_Paterno_Persona')}}</a>
             <small style="color: white">
-                <i class="fa fa-circle text-success" style="font-size: 0.7em"></i> <?php //echo $_SESSION["Cargo_Nivel"];?>
+                <i class="fa fa-circle text-success" style="font-size: 0.7em"></i> {{session('Cargo_Nivel')}}
             </small>
           </div>
         </div>
