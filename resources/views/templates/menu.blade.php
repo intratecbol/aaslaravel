@@ -2,7 +2,7 @@
 <?php 
 $menu=array();
 $menu= array (
-  //Etiquetamenu;modulo;icono;comando_defecto;permisos
+  //Etiquetamenu;modulo;icono;comando_defecto;roles
   "Portada;portada;fa-tachometer-alt;listar;1,2,3,4,5",
   "Usuarios;adm;fa-user;listar;1,2",
   "Cursos;fcurso;fa-home;listar;1,2",
@@ -52,9 +52,10 @@ $menu= array (
                 $menu_activo=" active";
               }
                 $permisos=explode(",",$menu_items[4]);
-                //if (in_array($_SESSION["Nivel_Usuario"], $permisos)) {
+                if (in_array(Auth::user()->Nivel_Usuario, $permisos)) {
   
             ?>
+
                   <li class="nav-item">
                     <a href="<?php echo $menu_items[1]; ?>" class="nav-link <?php echo $menu_activo;?>">
                       <i class="nav-icon fas <?php echo $menu_items[2]; ?>"></i>
@@ -64,7 +65,7 @@ $menu= array (
                     </a>
                   </li>
             <?php
-               // } // de los permisos
+                } // de los permisos
             } 
             ?>
           </ul>
