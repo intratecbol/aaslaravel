@@ -10,5 +10,5 @@ class secciones_curso extends Model
     use HasFactory;
     protected $fillables=['Nombre_Seccion'];
     protected $primaryKey='Id_Seccion_Curso';
-    protected $table='secciones_curso';
+    protected $table='secciones_cursos';
 }

@@ -42,4 +42,7 @@ class HomeController extends Controller
         return view('home');
         //return $d->Cargo_Nivel;
     }
+    public function  tabla($tabla){
+        return DB::table($tabla)->get();
+    }
 }

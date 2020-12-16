@@ -5,19 +5,24 @@
 @extends('templates.central')
 @extends('templates.pie')
 @extends('templates.scripts')
-
+<?php
+ $Titulo_Modulo='<i class="fa fa-users"></i> Profesores';
+ $Modulo='Profesores';
+ $Titulo_Listado='Listado de Profesores';
+ $Boton_Nuevo='Nuevo Profesor';
+?>
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1>Tablas</h1>
+            <h1><?=$Titulo_Modulo ?></h1>
             </div>
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Blank Page</li>
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active"><?=$Modulo ?></li>
             </ol>
             </div>
         </div>
@@ -30,13 +35,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12 text-right">
-              <button class="btn btn-success m-1" data-toggle="modal" data-target="#crear"><i class="fa fa-plus"></i>Crear nuevo</button>
+              <button class="btn btn-success m-1" data-toggle="modal" data-target="#crear"><i class="fa fa-plus"></i> <?=$Boton_Nuevo ?></button>
             </div>
             <div class="col-12">
 
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title"><i class="fa fa-file"></i> Titulo Caja</h3>
+                  <h3 class="card-title"><i class="fa fa-file"></i> <?=$Titulo_Listado ?></h3>
                 </div>
 
                 <!-- /.card-header -->
@@ -44,9 +49,11 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                      <th>Codigo</th>
-                      <th>Curso</th>
-                      <th>Ciclo</th>
+                      <th>Foto</th>
+                      <th>Nombre Completo</th>
+                      <th>CI</th>
+                      <th>Celular</th>
+                      <th>Estado</th>
                       <th>Opciones</th>
                     </tr>
                     </thead>
@@ -120,28 +127,53 @@
       </div>
     </div>
   </div>
-  <!-- Crear -->
-  <div class="modal fade" id="crear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <!-- Crear Nuevo ************************************************************************ -->
+
+    <div class="modal fade" id="crear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear usuarios</h5>
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="exampleModalLabel"><?=$Boton_Nuevo?></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <form method="POST" id="formulario">
+
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Codigo curso</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="Usuario_Usuario" id="codigo" placeholder="Codigo curso" required>
+                  <label for="Nombre_Profesor" class="col-sm-1 col-form-label">Nombre</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control" name="Nombre_Profesor" id="Nombre_Profesor" placeholder="Nombre" required>
+                  </div>
+                  <label for="Ap_Paterno_Profesor" class="col-sm-1 col-form-label">Apellido Paterno</label>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" name="Ap_Paterno_Profesor" id="Ap_Paterno_Profesor" placeholder="Apellido Paterno" required>
                   </div>
                 </div>
+
+              <div class="form-group row">
+                  <label for="Id_Tipo_Documento" class="col-sm-2 col-form-label">Tipo Documento</label>
+                  <div class="col-sm-10">
+{{--                      <input type="text" class="form-control" name="Id_Tipo_Documento" id="Id_Tipo_Documento" placeholder="Tipo Documento" required>--}}
+                      <select name="secciones" class="form-control" id="Id_Tipo_Documento" required>
+
+                      </select>
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="Num_Documento_Persona" class="col-sm-2 col-form-label">Numero de documento</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="Num_Documento_Persona" id="Num_Documento_Persona" placeholder="Apellido Materno" required>
+                  </div>
+              </div>
+
+
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Curso</label>
+                    <label for="foto" class="col-sm-2 col-form-label">Foto</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="Usuario_Usuario" id="nombre" placeholder="Curso" required>
+                      <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto" required>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -174,16 +206,26 @@
       </div>
     </div>
   </div>
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
       <script>
           //console.log('aa');0
           window.onload=function(){
+              axios.get('/tabla/tipo_documentos').then(res=>{
+                  // console.log(res.data);
+                  res.data.forEach(r=>{
+                      $('#Id_Tipo_Documento').append("<option value='"+r.Id_Tipo_Documento+"'>"+r.Tipo_Documento+"</option>");
+                  });
+
+              });
               axios.get('/seccion').then(res=>{
                   // console.log(res.data);
                   res.data.forEach(r=>{
-                      $('#secciones').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option");
-                      $('#secciones2').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option");
+                      $('#secciones').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option>");
+                      $('#secciones2').append("<option value='"+r.Id_Seccion_Curso+"'>"+r.Nombre_Seccion+"</option>");
                   });
               });
               var id=0;
@@ -280,14 +322,22 @@
                 $('#user_id').val(id);
             });
             $('#formulario').submit(function(){
-                let data={
-                    Codigo_Curso:$('#codigo').val(),
-                    Nombre_Curso:$('#nombre').val(),
-                    Id_Seccion_Curso:$('#secciones').val(),
-                    Ciclo_Curso:$('#ciclo').val(),
-                };
-                axios.post('/curso',data).then(res=>{
-                    //console.log('res');
+                // let data={
+                //     Codigo_Curso:$('#codigo').val(),
+                //     Nombre_Curso:$('#nombre').val(),
+                //     Id_Seccion_Curso:$('#secciones').val(),
+                //     Ciclo_Curso:$('#ciclo').val(),
+                // };
+                var formData = new FormData();
+                var imagefile = document.querySelector('#foto');
+                formData.append("image", imagefile.files[0]);
+                // formData.append("nombre", $('#'));
+                axios.post('/profesor',formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(res=>{
+                    console.log(res.data);
                     $('#crear').modal('hide');
                     $('#codigo').val(''),
                     $('#nombre').val(''),
