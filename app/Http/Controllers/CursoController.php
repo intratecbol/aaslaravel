@@ -78,5 +78,6 @@ class CursoController extends Controller
     {
         $d=Curso::find($id);
         $d->delete();
+
     }
 }

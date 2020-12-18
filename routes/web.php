@@ -39,13 +39,12 @@ Route::get('/contenido_datatables',[App\Http\Controllers\AdministrativoControlle
 Route::get('/fcurso', function () {
     return view('curso');
 })->middleware('auth');
-Route::get('/fprofesor', function () {
-    return view('profesores');
-})->middleware('auth');
+Route::get('/fprofesor', [App\Http\Controllers\ProfesorController::class,'findex'])->middleware('auth');
 Route::get('/portada', function () {
     return view('portada');
 })->middleware('auth');
 Route::apiResource('/curso',App\Http\Controllers\CursoController::class)->middleware('auth');
 Route::apiResource('/seccion',App\Http\Controllers\SeccionesCursoController::class)->middleware('auth');
 Route::apiResource('/profesor',App\Http\Controllers\ProfesorController::class)->middleware('auth');
+Route::post('/estado/{id}',[App\Http\Controllers\ProfesorController::class,'estado'])->middleware('auth')->name('profesor.estado');
 Route::get('/tabla/{id}',[App\Http\Controllers\HomeController::class,'tabla'])->middleware('auth');
