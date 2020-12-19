@@ -36,6 +36,7 @@ class HomeController extends Controller
         session(['Cargo_Nivel' => $d->Cargo_Nivel]);
         session(['Nivel_Usuario' => $d->Nivel_Usuario]);
         $d=DB::table('personas')->where('Id_Persona',Auth::user()->Id_Persona)->first();
+//        return Auth::user()->Id_Persona;
         session(['Id_Persona' => $d->Id_Persona]);
         session(['Nombre_Persona' => $d->Nombre_Persona]);
         session(['Ap_Paterno_Persona' => $d->Ap_Paterno_Persona]);

@@ -6,7 +6,8 @@ $menu= array (
   "Portada;portada;fa-tachometer-alt;listar;1,2,3,4,5",
   "Usuarios;adm;fa-user;listar;1,2",
   "Cursos;fcurso;fa-home;listar;1,2",
-  "Profesores;fprofesor;fa-users;listar;1,2",
+  "Profesores;profesor;fa-users;listar;1,2",
+    "Alumnos;alumno;fa-users;listar;1,2",
 
 );
 ?>

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\Curso;
 use App\Models\Persona;
-use App\Models\Profesor;
 use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class ProfesorController extends Controller
+class AlumnoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,12 +36,12 @@ class ProfesorController extends Controller
 
         $datos=DB::table('personas')
             ->join('users', 'users.Id_Persona', '=', 'personas.Id_Persona')
-            ->join('profesores', 'profesores.Id_Persona', '=', 'personas.Id_Persona')
-            ->where('users.Nivel_usuario','3')
+            ->join('alumnos', 'alumnos.Id_Persona', '=', 'personas.Id_Persona')
+            ->where('users.Nivel_usuario','4')
 //            ->select('users.*', 'contacts.phone', 'orders.price')
             ->get();
 //        return $datos;
-        return view('profesores',compact(['datos']));
+        return view('alumno',compact(['datos']));
     }
 
     public function estado(Request $request,$id){
@@ -55,9 +55,9 @@ class ProfesorController extends Controller
                 $u[0]->Estado_Usuario=1;
             }
             $u[0]->save();
-            return redirect()->back()->with('success', 'estado saved!');
+            return redirect('/alumno')->with('success', 'estado saved!');
         }else{
-            return redirect()->back()->with('success', 'Usuario no encontrado');
+            return redirect('/alumno')->with('success', 'Usuario no encontrado');
         }
 
     }
@@ -102,31 +102,33 @@ class ProfesorController extends Controller
         $Id_Persona=$persona->Id_Persona;
 
         $user=new User();
-        $user->username='jose';
-        $user->password=Hash::make('jose');
-        $user->Nivel_Usuario='3';
+        $user->username='jose_alumno';
+        $user->password=Hash::make('jose_alumno');
+        $user->Nivel_Usuario='4';
         $user->Id_Persona=$Id_Persona;
         $user->Estado_Usuario='1';
         $user->save();
         $Id_User=$user->id;
 
-        $profesor=new Profesor();
-        $profesor->Id_Persona=$Id_Persona;
-        $profesor->Codigo_Profesor='abc';
-        $profesor->Fecha_Ingreso=now();
-        $profesor->save();
+        $alumno=new Alumno();
+
+        $alumno->Codigo_Alumno='abc';
+        $alumno->Id_Persona=$Id_Persona;
+        $alumno->Fecha_Ingreso_Alumno=now();
+        $alumno->Observaciones_Alumno='';
+        $alumno->save();
 //        $Id_User=$user->id;
 //        echo 1;
-        return redirect('/profesor')->with('success', 'Contact saved!');
+        return redirect('/alumno')->with('success', 'Contact saved!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profesor  $profesor
+     * @param  \App\Models\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(Profesor $profesor)
+    public function show(Alumno $alumno)
     {
         //
     }
@@ -146,12 +148,13 @@ class ProfesorController extends Controller
 //            return "Usuario no disponible";
 //            exit;
 //        }
-        $profesor= Profesor::find($id);
-//        $profesor->Id_Persona=$Id_Persona;
-        $profesor->Codigo_Profesor='abc';
-        $profesor->Fecha_Ingreso=now();
-        $profesor->save();
-        $Id_Persona=$profesor->Id_Persona;
+        $alumno= Alumno::find($id);
+//        $alumno->Id_Persona=$Id_Persona;
+        $alumno->Codigo_Alumno='abc';
+        $alumno->Fecha_Ingreso_Alumno=now();
+        $alumno->Observaciones_Alumno="";
+        $alumno->save();
+        $Id_Persona=$alumno->Id_Persona;
 
 
         $persona= Persona::find($Id_Persona);
@@ -187,7 +190,7 @@ class ProfesorController extends Controller
         if ($user->count()>0){
             $user->username='pepe';
             $user->password=Hash::make('jose');
-            $user->Nivel_Usuario='3';
+            $user->Nivel_Usuario='4';
 //        $user->Id_Persona=$Id_Persona;
             $user->Estado_Usuario='1';
 //            var_dump($user) ;
@@ -205,7 +208,7 @@ class ProfesorController extends Controller
 //        $profesor->save();
 //        $Id_User=$user->id;
 //        echo 1;
-        return redirect('/profesor')->with('success', 'update saved!');
+        return redirect('/alumno')->with('success', 'update saved!');
     }
 
     /**
@@ -216,13 +219,13 @@ class ProfesorController extends Controller
      */
     public function destroy($id)
     {
-        $d=Profesor::find($id);
+        $d=Alumno::find($id);
         $d->delete();
         $Id_Persona=$d->Id_Persona;
         $d=Persona::where('Id_Persona',$Id_Persona);
         $d->delete();
         $d=User::where('Id_Persona',$Id_Persona);
         $d->delete();
-        return redirect('/profesor')->with('success', 'delete saved!');
+        return redirect('/alumno')->with('success', 'delete saved!');
     }
 }
