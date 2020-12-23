@@ -52,10 +52,10 @@ Route::apiResource('/curso',App\Http\Controllers\CursoController::class)->middle
 Route::apiResource('/seccion',App\Http\Controllers\SeccionesCursoController::class)->middleware('auth');
 Route::apiResource('/profesor',App\Http\Controllers\ProfesorController::class)->middleware('auth');
 Route::apiResource('/alumno',App\Http\Controllers\AlumnoController::class)->middleware('auth');
-
-Route::apiResource('/seccion',App\Http\Controllers\SeccionesCursoController::class)->middleware('auth');
-Route::apiResource('/profesor',App\Http\Controllers\ProfesorController::class)->middleware('auth');
-Route::apiResource('/alumno',App\Http\Controllers\AlumnoController::class)->middleware('auth');
+//get post put delete
+//Route::apiResource('/seccion',App\Http\Controllers\SeccionesCursoController::class)->middleware('auth');
+//Route::apiResource('/profesor',App\Http\Controllers\ProfesorController::class)->middleware('auth');
+//Route::apiResource('/alumno',App\Http\Controllers\AlumnoController::class)->middleware('auth');
 
 
 

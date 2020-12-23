@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Curso;
 use App\Models\Persona;
 use App\Models\Profesor;
 use App\Models\User;
-use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+include 'librerias/generar_campos_form.php';
+
 class ProfesorController extends Controller
 {
+    public function __construct()
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function findex()
-    {
-//        return Profesor::with('persona')->get();
-//        $datos=Profesor::with('persona')->get();
-//        return view('profesores',compact(['datos']));
-    }
+
     public function index()
     {
 //        return Profesor::with('persona')->get();
@@ -62,12 +62,7 @@ class ProfesorController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -120,15 +115,32 @@ class ProfesorController extends Controller
         return redirect('/profesor')->with('success', 'Contact saved!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profesor  $profesor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profesor $profesor)
+
+    public function show($id,Request $request)
     {
-        //
+       
+
+
+        if ($request->ajax()) {
+            //return response()->json($data);
+            if(Auth::user()->Nivel_Usuario==1){
+                $datos=DB::table('personas')
+                ->join('users', 'users.Id_Persona', '=', 'personas.Id_Persona')
+                ->join('profesores', 'profesores.Id_Persona', '=', 'personas.Id_Persona')
+                ->where('users.Nivel_usuario','3')
+                ->where('personas.Id_Persona',$id)
+                ->get();
+                return $datos;
+            }
+        }else{
+            return redirect('/home');
+
+        }
+
+        //return view($template, $data);
+        
+        //return view('profesores',compact(['datos']));
+
     }
 
     /**
